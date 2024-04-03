@@ -57,7 +57,7 @@ exports.update = (req, res) => {
                 });
             } else res.send({ message: "Card was updated successfully." });
         })
-        .catch(err => {
+        .catch(() => {
             res.status(500).send({
                 message: "Error updating Card with id=" + id
             });
@@ -80,7 +80,7 @@ exports.delete = (req, res) => {
             else res.send({ message: "Card was deleted successfully." });
 
         })
-        .catch(err=>{
+        .catch(() =>{
             res.status(500).send({
                 message:"Error deleting Card" + id
             });

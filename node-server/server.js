@@ -1,8 +1,5 @@
 const express = require("express");
 const cors = require("cors");
-const { MongoClient } = require("mongodb");
-const dbConfig = require("./app/config/db.config.js");
-
 
 const app = express();
 
