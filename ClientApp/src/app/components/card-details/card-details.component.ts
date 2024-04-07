@@ -16,8 +16,7 @@ export class CardDetailsComponent implements OnInit{
   currentCard?: Card ={
     type: "card",
     title:'',
-    text:'',
-    tasks: [{text: '', completed: false}]
+    text:''
   };
   constructor(private cardService: CardService,
   private route: ActivatedRoute,

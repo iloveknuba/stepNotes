@@ -4,7 +4,6 @@ import {CardDetailsComponent} from "./components/card-details/card-details.compo
 import {AddCardComponent} from "./components/add-card/add-card.component";
 
 export const routes: Routes = [
-    { path: '', redirectTo: 'notes', pathMatch: 'full' },
     { path: 'notes', component: CardListComponent },
     { path: 'notes/:id', component: CardDetailsComponent },
     { path: 'add', component: AddCardComponent }

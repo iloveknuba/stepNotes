@@ -1,7 +1,6 @@
 export class Card {
   id?:any;
-  type?:'card' | "todo";
+  type?:string;
   title?:string;
   text?:string;
-  tasks?:[{text: string, completed: boolean}];
 }
