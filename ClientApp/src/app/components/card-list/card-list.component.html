@@ -1,1 +1,11 @@
-<p>card-list works!</p>
+<div class="col-md-6">
+  <h4>Notes</h4>
+  <ul class="list-group">
+    <li
+      class="list-group-item"
+      *ngFor="let card of cards;">
+
+      {{ card.title }}
+    </li>
+  </ul>
+</div>

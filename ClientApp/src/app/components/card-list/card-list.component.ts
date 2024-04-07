@@ -1,11 +1,14 @@
 import {Component, OnInit} from '@angular/core';
 import {CardService} from "../../services/card.service";
 import {Card} from "../../models/card.model";
+import {NgForOf} from "@angular/common";
 
 @Component({
   selector: 'app-card-list',
   standalone: true,
-  imports: [],
+  imports: [
+    NgForOf
+  ],
   templateUrl: './card-list.component.html',
   styleUrl: './card-list.component.css'
 })
