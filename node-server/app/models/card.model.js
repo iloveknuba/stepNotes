@@ -1,36 +1,61 @@
 module.exports = mongoose => {
-    const noteSchema = new mongoose.Schema({
+    const cardSchema = new mongoose.Schema({
         type: {
             type: String,
-            enum: ['card', 'todo'],
+            default: "card",
+            enum: ['card'],
             required: true
         },
         title: {
             type: String,
-            required: false
+            required: true
         },
         text: {
             type: String,
             required: false
         },
-        tasks: [{
-            text: {
+    },
+        { timestamps: true });
+    const listSchema = new mongoose.Schema({
+            type: {
+                type: String,
+                default: "todo",
+                enum: ['todo'],
+                required: true
+            },
+            title: {
                 type: String,
                 required: true
             },
-            completed: {
-                type: Boolean,
-                default: false
-            }
-        }],
-    },
-        { timestamps: true });
+            text: {
+                type: String,
+                required: false
+            },
+            tasks: [{
+                text: {
+                    type: String,
+                    required: true
+                },
+                completed: {
+                    type: Boolean,
+                    default: false
+                }
+            }],
+        })
 
-    noteSchema.method("toJSON", function() {
-        const { __v, _id, ...object } = this.toObject();
+    cardSchema.method("toJSON", function () {
+        const {__v, _id, ...object} = this.toObject();
         object.id = _id;
         return object;
     });
 
-    return mongoose.model("card", noteSchema);
+    listSchema.method("toJSON", function () {
+        const {__v, _id, ...object} = this.toObject();
+        object.id = _id;
+        return object;
+    });
+    const Card = mongoose.model("card", cardSchema);
+    const List = mongoose.model("list", listSchema);
+
+    return {Card,List}
 };

@@ -1,4 +1,4 @@
-const base = require('./base.controller');
+const base = require('base.controller')
 exports.delete = base.delete;
 exports.update = base.update;
 exports.findAll = base.findAll;
@@ -10,12 +10,13 @@ exports.create = (req, res, Model) => {
         return;
     }
 
-    // Create a CardC
+    // Create a Card
     const card = new Model({
         type: req.body.type,
         title: req.body.title,
         text: req.body.text,
-    });
+        tasks: req.body.tasks.map(task => ({text: task.text , completed: false}))
+    })
 
     // Save Card in the database
     card.save(card).then(data => {
@@ -23,7 +24,7 @@ exports.create = (req, res, Model) => {
     }).catch(err => {
         res.status(500).send({
             message:
-                err.message || "Some error occurred while creating the card."
+                err.message || "Some error occurred while creating the list."
         });
     });
 };

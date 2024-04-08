@@ -1,10 +1,11 @@
 const express = require("express");
 const cors = require("cors");
+const mongoose = require("mongoose");
 
 const app = express();
 
 let corsOptions = {
-    origin: "http://localhost:8081"
+    origin: "http://localhost:52580"
 };
 
 app.use(cors(corsOptions));
@@ -15,9 +16,8 @@ app.use(express.json());
 // parse requests of content-type - application/x-www-form-urlencoded
 app.use(express.urlencoded({ extended: true }));
 
-const db = require("./app/models");
-db.mongoose
-    .connect(db.url)
+mongoose
+    .connect("mongodb+srv://xxxcccer982:nDPKRxhmQyuq1P8D@cluster0.qg4fjiy.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0")
     .then(() => {
         console.log("Connected to the database!");
     })
@@ -26,12 +26,12 @@ db.mongoose
         process.exit();
     });
 
-
+const db = require("./app/models/card.model")(mongoose);
 app.get("/", (req, res) => {
     res.json({ message: "Welcome to  application." });
 });
 
-require("./app/routes/card.routes")(app);
+require("./app/routes/card.routes")(app, db.Card);
 
 // set port, listen for requests
 const PORT = process.env.PORT || 8080;
