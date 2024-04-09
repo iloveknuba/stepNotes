@@ -1,0 +1,21 @@
+<div class="col-md-6">
+  <h4>To do lists</h4>
+  <ul class="list-group">
+    <li
+      class="list-group-item"
+      *ngFor="let list of lists; let i = index"
+      [class.active]="i== currentListIndex"
+      (click)="chooseList(list,i)"
+    >
+
+      {{ list.title }}
+    </li>
+  </ul>
+  <div class="col-md-6">
+    <app-todo-details
+      [viewMode]="true"
+      [currentList]="currentList"
+    ></app-todo-details>
+  </div>
+</div>
+

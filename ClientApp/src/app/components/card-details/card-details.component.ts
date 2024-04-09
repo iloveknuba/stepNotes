@@ -1,31 +1,46 @@
 import {Component, Input, OnInit} from '@angular/core';
 import { Card } from '../../models/card.model';
 import {CardService} from "../../services/card.service";
-import {ActivatedRoute, Router} from "@angular/router";
+import {ActivatedRoute, Router, RouterLink} from "@angular/router";
+import {NgIf} from "@angular/common";
+import {FormsModule} from "@angular/forms";
+import {List} from "../../models/list.model";
+import {ListService} from "../../services/list.service";
 
 @Component({
   selector: 'app-card-details',
   standalone: true,
-  imports: [],
+  imports: [
+    RouterLink,
+    NgIf,
+    FormsModule
+  ],
   templateUrl: './card-details.component.html',
   styleUrl: './card-details.component.css'
 })
 export class CardDetailsComponent implements OnInit{
 
-  @Input()
-  currentCard?: Card ={
-    type: "card",
-    title:'',
-    text:''
+
+  @Input() viewMode = false;
+
+  @Input() currentCard: Card = {
+    title: '',
+    text: '',
+    type: 'card'
   };
+
   constructor(private cardService: CardService,
   private route: ActivatedRoute,
-  private router: Router) {}
+  private router: Router) {
+  }
     ngOnInit(): void {
+      if (!this.viewMode) {
         this.getCardDetails(this.route.snapshot.params["id"])
-    }
+      }
+  }
 
     getCardDetails(id: string){
+
     this.cardService.get(id)
       .subscribe({
         next: cardDetails => {
@@ -33,7 +48,7 @@ export class CardDetailsComponent implements OnInit{
           console.log(this.currentCard);
         },
         error: err => {console.log(err)}
-      })
+      });
     }
   deleteCard() {
     this.cardService.delete(this.currentCard?.id)

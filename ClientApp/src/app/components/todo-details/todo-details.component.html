@@ -1,0 +1,104 @@
+<div *ngIf="viewMode; else editable">
+  <div *ngIf="currentList.id">
+    <h4>Tutorial</h4>
+    <div>
+      <label><strong>Title:</strong></label> {{ currentList.title }}
+    </div>
+    <div>
+      <label><strong>Text:</strong></label>
+      {{ currentList.text }}
+    </div>
+    <div>
+      <label><strong>Status:</strong></label>
+      {{ currentList.type }}
+    </div>
+
+    <a
+      class=""
+      routerLink="/lists/{{ currentList.id }}"
+    >
+      Edit
+    </a>
+  </div>
+
+  <div *ngIf="!currentList">
+    <br />
+    <p>Please click on a Tutorial...</p>
+  </div>
+</div>
+<ng-template #editable>
+  <div *ngIf="currentList.id" class="edit-form">
+    <h4>Tutorial</h4>
+    <form>
+      <div class="form-group">
+        <label for="title">Title</label>
+        <input
+          type="text"
+          class="form-control"
+          id="title"
+          [(ngModel)]="currentList.title"
+          name="title"
+        />
+      </div>
+      <div class="form-group">
+        <label for="description">Description</label>
+        <input
+          type="text"
+          class="form-control"
+          id="description"
+          [(ngModel)]="currentList.text"
+          name="text"
+        />
+      </div>
+      <div class="form-group">
+        <label for="description">Tasks</label>
+        <ul>
+          <li
+            class="list-group-item"
+            *ngFor="let task of currentList.tasks; let i = index">
+            <input
+              type="text"
+              class="form-control"
+              [(ngModel)]="task.text"
+              name="tasktext + {{i}}"
+            />
+            <input
+              type="checkbox"
+              [(ngModel)]="task.completed"
+              name="taskcompleted + {{i}}"
+            />
+          </li>
+        </ul>
+      </div>
+      <div class="form-group">
+        <label for="description">Add task</label>
+        <input
+          placeholder="Text"
+          type="text"
+          class="form-control"
+          [(ngModel)]="taskText"
+          name="addTasText"
+        />
+      </div>
+      <button (click)="addTask()" class="btn btn-success">Add task</button>
+    </form>
+
+
+    <button class="" (click)="deleteCard()">
+      Delete
+    </button>
+
+    <button
+      type="submit"
+      class=""
+      (click)="updateCard()"
+    >
+      Update
+    </button>
+  </div>
+
+  <div *ngIf="!currentList.id">
+    <br />
+    <p>Cannot access this Tutorial...</p>
+  </div>
+</ng-template>

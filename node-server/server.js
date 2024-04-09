@@ -32,6 +32,7 @@ app.get("/", (req, res) => {
 });
 
 require("./app/routes/card.routes")(app, db.Card);
+require("./app/routes/list.routes")(app, db.List);
 
 // set port, listen for requests
 const PORT = process.env.PORT || 8080;
