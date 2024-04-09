@@ -2,13 +2,19 @@ import {Component, OnInit} from '@angular/core';
 import {CardService} from "../../services/card.service";
 import {Card} from "../../models/card.model";
 import {NgForOf} from "@angular/common";
+import {ListService} from "../../services/list.service";
+import {List} from "../../models/list.model";
+import {RouterLink} from "@angular/router";
+import {CardDetailsComponent} from "../card-details/card-details.component";
 
 
 @Component({
   selector: 'app-card-list',
   standalone: true,
   imports: [
-    NgForOf
+    NgForOf,
+    RouterLink,
+    CardDetailsComponent
   ],
   templateUrl: './card-list.component.html',
   styleUrl: './card-list.component.css'
@@ -16,10 +22,15 @@ import {NgForOf} from "@angular/common";
 export class CardListComponent implements OnInit{
 
   cards?: Card[];
-  constructor(private cardService: CardService) { }
+
+  currentCard:Card = {};
+  currentCardIndex = -1;
+
+
+  constructor(private cardService: CardService,
+              private listService: ListService) { }
     ngOnInit(): void {
         this.getCards();
-        this.getMock();
     }
 
     getCards(): void {
@@ -32,6 +43,7 @@ export class CardListComponent implements OnInit{
         error: err => {console.log(err)}
       })
     }
+
     getMock(): void{
       this.cards = mock.map(item => {
         return {
@@ -41,6 +53,10 @@ export class CardListComponent implements OnInit{
           text: item.text
         };
       });
+    }
+    chooseCard(card: Card, index: number): void{
+      this.currentCard = card;
+      this.currentCardIndex = index;
     }
 
 }

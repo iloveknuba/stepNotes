@@ -1,3 +1,68 @@
-<div>
+<div *ngIf="viewMode; else editable" class="d-flex align-content-between justify-content-center">
+  <div *ngIf="currentCard.id">
+    <div class="p-3">
+      <label><strong>Title:</strong></label>
+      <span>{{ currentCard.title }}</span>
+    </div>
+    <div class="p-3">
+      <label><strong>Text:</strong></label>
+      {{ currentCard.text }}
+    </div>
+    <a
+      class=""
+      routerLink="/notes/{{ currentCard.id }}"
+    >
+      Edit
+    </a>
+  </div>
 
+  <div *ngIf="!currentCard">
+    <br />
+    <p>Please click on a Tutorial...</p>
+  </div>
 </div>
+<ng-template #editable>
+  <div *ngIf="currentCard.id" class="edit-form">
+    <form>
+      <div class="form-group">
+        <label for="title">Title</label>
+        <input
+          type="text"
+          class="form-control"
+          id="title"
+          [(ngModel)]="currentCard.title"
+          name="title"
+        />
+      </div>
+      <div class="form-group">
+        <label for="description">Text</label>
+        <input
+          type="text"
+          class="form-control"
+          id="description"
+          [(ngModel)]="currentCard.text"
+          name="description"
+        />
+      </div>
+
+    </form>
+
+
+    <button class="" (click)="deleteCard()">
+      Delete
+    </button>
+
+    <button
+      type="submit"
+      class=""
+      (click)="updateCard()"
+    >
+      Update
+    </button>
+  </div>
+
+  <div *ngIf="!currentCard.id">
+    <br />
+    <p>Cannot access this Tutorial...</p>
+  </div>
+</ng-template>

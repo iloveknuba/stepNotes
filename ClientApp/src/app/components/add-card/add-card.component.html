@@ -8,7 +8,7 @@
           class="form-control"
           id="title"
           required
-          [(ngModel)]="card.title"
+          [(ngModel)]="title"
           name="title"
         />
       </div>
@@ -19,7 +19,7 @@
           class="form-control"
           id="description"
           required
-          [(ngModel)]="card.text"
+          [(ngModel)]="text"
           name="description"
         />
       </div>
@@ -42,9 +42,27 @@
           [(ngModel)]="isTodo"
         />
       </div>
+      <div *ngIf="isTodo">
+        <ol class="list-group">
+          <li
+            class="list-group-item"
+            *ngFor="let task of list.tasks;">
 
+            {{ task.text }}
+            {{task.completed}}
+          </li>
+        </ol>
+          <label>Add task</label>
+        <input
+        type="text"
+        class="form-control"
+        required
+        [(ngModel)]="taskText"
+        />
+        <button (click)="addTask()" class="btn btn-success">Add task</button>
+      </div>
 
-      <button (click)="saveCard()" class="btn btn-success">Submit</button>
+      <button (click)="save()" class="btn btn-success">Submit</button>
     </div>
 
     <div *ngIf="submitted">
@@ -52,4 +70,5 @@
       <a routerLink="/notes"> Home</a>
     </div>
   </div>
+
 </div>

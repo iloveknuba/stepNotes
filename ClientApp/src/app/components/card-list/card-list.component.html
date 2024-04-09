@@ -3,11 +3,18 @@
   <ul class="list-group">
     <li
       class="list-group-item"
-      *ngFor="let card of cards;">
-
+      *ngFor="let card of cards; let i = index"
+      [class.active]="i == currentCardIndex"
+      (click)="chooseCard(card, i)"
+    >
       {{ card.title }}
-      {{card.text}}
-      {{card.type}}
-    </li>
   </ul>
 </div>
+
+<div class="col-md-6">
+  <app-card-details
+    [viewMode]="true"
+    [currentCard]="currentCard"
+  ></app-card-details>
+</div>
+

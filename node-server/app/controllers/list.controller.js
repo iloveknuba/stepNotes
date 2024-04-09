@@ -1,7 +1,8 @@
-const base = require('base.controller')
+const base = require('./base.controller')
 exports.delete = base.delete;
 exports.update = base.update;
 exports.findAll = base.findAll;
+exports.findOne = base.findOne;
 
 exports.create = (req, res, Model) => {
     // Validate request
