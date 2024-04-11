@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import {Card} from "../../models/card.model";
 import { CardService } from '../../services/card.service';
-import {NgForOf, NgIf} from "@angular/common";
+import {NgForOf, NgIf, NgOptimizedImage} from "@angular/common";
 import {FormsModule} from "@angular/forms";
 import {RouterLink} from "@angular/router";
 import {ListService} from "../../services/list.service";
@@ -14,7 +14,8 @@ import {List} from "../../models/list.model";
     NgIf,
     FormsModule,
     RouterLink,
-    NgForOf
+    NgForOf,
+    NgOptimizedImage
   ],
   templateUrl: './add-card.component.html',
   styleUrl: './add-card.component.css'
@@ -37,14 +38,13 @@ export class AddCardComponent {
   text='';
 
   taskText = '';
-  isCard = false;
+  chosenCard = '';
   submitted = false;
-  isTodo = false;
   constructor(private cardService: CardService,
               private listService: ListService) {}
 
   save(){
-    this.isCard ? this.saveCard() : this.saveTodo();
+    this.chosenCard == 'card' ? this.saveCard() : this.saveTodo();
   }
   saveCard(): void {
     const data = {
@@ -84,11 +84,15 @@ export class AddCardComponent {
 
   }
   addTask(): void {
+    if(this.taskText == '') return;
     this.list.tasks?.push( {
       text: this.taskText,
       completed: false
     });
     this.taskText = '';
+  }
+  removeTask(index: number): void {
+    this.list.tasks?.splice(index, 1);
   }
 
 }

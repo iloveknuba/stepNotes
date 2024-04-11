@@ -6,6 +6,7 @@ import {TodoDetailsComponent} from "./components/todo-details/todo-details.compo
 import {TodoComponent} from "./components/todo/todo.component";
 
 export const routes: Routes = [
+    {path:'', redirectTo:'notes', pathMatch:"full"},
     { path: 'notes', component: CardListComponent },
     { path: 'notes/:id', component: CardDetailsComponent },
     { path: 'lists/:id', component: TodoDetailsComponent},

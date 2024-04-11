@@ -1,24 +1,30 @@
-<div *ngIf="viewMode; else editable">
-  <div *ngIf="currentList.id">
-    <h4>Tutorial</h4>
-    <div>
-      <label><strong>Title:</strong></label> {{ currentList.title }}
-    </div>
-    <div>
-      <label><strong>Text:</strong></label>
-      {{ currentList.text }}
-    </div>
-    <div>
-      <label><strong>Status:</strong></label>
-      {{ currentList.type }}
-    </div>
 
-    <a
-      class=""
-      routerLink="/lists/{{ currentList.id }}"
-    >
-      Edit
-    </a>
+<div *ngIf="viewMode; else editable" class="align-content-between justify-content-between ">
+  <div *ngIf="currentList.id" class=" align-items-center justify-content-between align-items-center w-100 p-3">
+    <div class="card p-3">
+      <div class="p-2">
+        <label><strong>Title:&nbsp; </strong></label>
+        <span>{{ currentList.title }}</span>
+      </div>
+      <div class="p-2">
+        <label><strong>Text:&nbsp; </strong></label>
+        <span>{{ currentList.text }}</span>
+      </div>
+      <div class="p-2">
+        <label><strong>Tasks:&nbsp; </strong></label>
+        <ul>
+          <li *ngFor="let task of currentList.tasks" class="d-flex justify-content-between card">
+            <span>
+              {{task.text}}
+            </span>
+            <img *ngIf="task.completed" ngSrc="assets/done.svg" alt="" height="25" width="25">
+          </li>
+        </ul>
+      </div>
+    </div>
+    <div class="m-3 text-center">
+      <a class="btn btn-primary ml-3 " routerLink="/lists/{{ currentList.id }}">Edit</a>
+    </div>
   </div>
 
   <div *ngIf="!currentList">
@@ -28,7 +34,6 @@
 </div>
 <ng-template #editable>
   <div *ngIf="currentList.id" class="edit-form">
-    <h4>Tutorial</h4>
     <form>
       <div class="form-group">
         <label for="title">Title</label>
@@ -41,7 +46,7 @@
         />
       </div>
       <div class="form-group">
-        <label for="description">Description</label>
+        <label for="description">Text</label>
         <input
           type="text"
           class="form-control"
@@ -53,20 +58,26 @@
       <div class="form-group">
         <label for="description">Tasks</label>
         <ul>
+
           <li
-            class="list-group-item"
+            class="list-group-item justify-content-between d-flex align-items-center pt-3 pb-3"
             *ngFor="let task of currentList.tasks; let i = index">
             <input
+              type="checkbox"
+              class="m-2"
+              [(ngModel)]="task.completed"
+              name="taskcompleted + {{i}}"
+
+            />
+            <input
               type="text"
-              class="form-control"
+              class="form-control p-2"
               [(ngModel)]="task.text"
               name="tasktext + {{i}}"
             />
-            <input
-              type="checkbox"
-              [(ngModel)]="task.completed"
-              name="taskcompleted + {{i}}"
-            />
+            <button (click)="removeTask(i)" class="btn">
+              <img ngSrc="assets/musorka.svg" alt="" height="25" width="25"/>
+            </button>
           </li>
         </ul>
       </div>
@@ -80,21 +91,23 @@
           name="addTasText"
         />
       </div>
-      <button (click)="addTask()" class="btn btn-success">Add task</button>
+      <button (click)="addTask()" class="btn btn-secondary btn-sm">Add task</button>
     </form>
 
-
-    <button class="" (click)="deleteCard()">
+  <div class="justify-content-between d-flex align-items-center pt-3 pb-3">
+    <button class="btn btn-primary" (click)="deleteCard()">
       Delete
     </button>
 
     <button
       type="submit"
-      class=""
+      class="btn btn-primary ml-3 "
       (click)="updateCard()"
     >
       Update
     </button>
+  </div>
+
   </div>
 
   <div *ngIf="!currentList.id">

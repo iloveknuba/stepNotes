@@ -1,11 +1,12 @@
 import {Component, Input, OnInit} from '@angular/core';
 import {Card} from "../../models/card.model";
 import {List} from "../../models/list.model";
+
 import {CardService} from "../../services/card.service";
 import {ListService} from "../../services/list.service";
 import {ActivatedRoute, Router, RouterLink} from "@angular/router";
 import {FormsModule} from "@angular/forms";
-import {NgForOf, NgIf} from "@angular/common";
+import {NgForOf, NgIf, NgOptimizedImage} from "@angular/common";
 
 @Component({
   selector: 'app-todo-details',
@@ -14,7 +15,8 @@ import {NgForOf, NgIf} from "@angular/common";
     FormsModule,
     NgIf,
     RouterLink,
-    NgForOf
+    NgForOf,
+    NgOptimizedImage
   ],
   templateUrl: './todo-details.component.html',
   styleUrl: './todo-details.component.css'
@@ -42,7 +44,6 @@ export class TodoDetailsComponent implements OnInit{
   }
 
   getCardDetails(id: string){
-
     this.listService.get(id)
       .subscribe({
         next: cardDetails => {
@@ -66,17 +67,21 @@ export class TodoDetailsComponent implements OnInit{
       .subscribe({
         next: cardDetails => {
           console.log(cardDetails);
-          this.router.navigate(['/notes'])
+          this.router.navigate(['/lists'])
         },
         error: err => {console.log(err)}
       })
   }
   addTask(): void {
+    if (this.taskText == '') return;
     this.currentList.tasks?.push( {
       text: this.taskText,
       completed: false
     });
     this.taskText = '';
     this.taskCompleted = false;
+  }
+  removeTask(index: number): void {
+    this.currentList.tasks?.splice(index, 1);
   }
 }

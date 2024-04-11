@@ -1,19 +1,18 @@
-<div *ngIf="viewMode; else editable" class="d-flex align-content-between justify-content-center">
-  <div *ngIf="currentCard.id">
-    <div class="p-3">
-      <label><strong>Title:</strong></label>
-      <span>{{ currentCard.title }}</span>
+<div *ngIf="viewMode; else editable" class="align-content-between justify-content-between ">
+  <div *ngIf="currentCard.id" class=" align-items-center justify-content-between align-items-center w-100 p-3">
+    <div class="card p-3">
+      <div class="p-2">
+        <label><strong>Title:&nbsp; </strong></label>
+        <span>{{ currentCard.title }}</span>
+      </div>
+      <div class="p-2">
+        <label><strong>Text:&nbsp; </strong></label>
+        <span>{{ currentCard.text }}</span>
+      </div>
     </div>
-    <div class="p-3">
-      <label><strong>Text:</strong></label>
-      {{ currentCard.text }}
+    <div class="m-3 text-center">
+      <a class="btn btn-primary ml-3 " routerLink="/notes/{{ currentCard.id }}">Edit</a>
     </div>
-    <a
-      class=""
-      routerLink="/notes/{{ currentCard.id }}"
-    >
-      Edit
-    </a>
   </div>
 
   <div *ngIf="!currentCard">
@@ -21,6 +20,8 @@
     <p>Please click on a Tutorial...</p>
   </div>
 </div>
+
+
 <ng-template #editable>
   <div *ngIf="currentCard.id" class="edit-form">
     <form>
@@ -48,17 +49,19 @@
     </form>
 
 
-    <button class="" (click)="deleteCard()">
-      Delete
-    </button>
+    <div class="justify-content-between d-flex align-items-center pt-3 pb-3">
+      <button class="btn btn-primary" (click)="deleteCard()">
+        Delete
+      </button>
 
-    <button
-      type="submit"
-      class=""
-      (click)="updateCard()"
-    >
-      Update
-    </button>
+      <button
+        type="submit"
+        class="btn btn-primary ml-3 "
+        (click)="updateCard()"
+      >
+        Update
+      </button>
+    </div>
   </div>
 
   <div *ngIf="!currentCard.id">
