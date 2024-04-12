@@ -71,6 +71,7 @@ export class AddCardComponent {
       text: this.text,
       tasks: this.list.tasks
     };
+    if(data.text == '' || data.title == '') return;
     this.listService.create(data)
       .subscribe({
         next: data => {
