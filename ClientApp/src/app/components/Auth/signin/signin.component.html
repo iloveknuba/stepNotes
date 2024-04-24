@@ -1,0 +1,24 @@
+<form [formGroup]="loginForm" (ngSubmit)="login()" autocomplete="off" novalidate>
+  <div class="form-group mb-3">
+    <label for="email" class="form-label">Email</label>
+    <input type="text" id="email" class="form-control"
+    [class]="{'invalid': loginForm.get('email')?.hasError('required') && loginForm.get('email')?.touched}"
+    placeholder="email" formControlName="email">
+    @if (loginForm.get('email')?.hasError('required') && loginForm.get('email')?.touched){
+      <span class="form-error"> email is required</span>
+    }
+  </div>
+  <div class="form-group mb-3">
+    <label for="password" class="form-label">Password</label>
+    <input type="text" id="password" class="form-control"
+           [class]="{'invalid': loginForm.get('password')?.hasError('required') && loginForm.get('password')?.touched}"
+           placeholder="password" formControlName="password">
+    @if (loginForm.get('password')?.hasError('required') && loginForm.get('password')?.touched){
+      <span class="form-error"> password is required</span>
+    }
+  </div>
+  <div class="form-group mb-3">
+    <a href="/signup">Don`t have an account? Register</a>
+  </div>
+  <button type="submit" class="btn-secondary">Login</button>
+</form>

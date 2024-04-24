@@ -13,6 +13,7 @@ exports.create = (req, res, Model) => {
 
     // Create a CardC
     const card = new Model({
+        userId: req.userId,
         type: req.body.type,
         title: req.body.title,
         text: req.body.text,

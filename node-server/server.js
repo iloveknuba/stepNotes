@@ -5,7 +5,7 @@ const mongoose = require("mongoose");
 const app = express();
 
 let corsOptions = {
-    origin: "http://localhost:52580"
+    origin: "http://localhost:4200"
 };
 
 app.use(cors(corsOptions));
@@ -27,12 +27,14 @@ mongoose
     });
 
 const db = require("./app/models/card.model")(mongoose);
+const users = require("./app/models/user.model")(mongoose);
 app.get("/", (req, res) => {
     res.json({ message: "Welcome to  application." });
 });
 
 require("./app/routes/card.routes")(app, db.Card);
 require("./app/routes/list.routes")(app, db.List);
+require("./app/routes/auth.routes")(app, users);
 
 // set port, listen for requests
 const PORT = process.env.PORT || 8080;

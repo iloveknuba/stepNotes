@@ -1,17 +1,22 @@
 <div>
-  <nav class="navbar navbar-expand navbar-dark bg-dark">
-    <div class="navbar-nav mr-auto">
-      <li class="nav-item">
-        <a routerLink="/notes" class="nav-link">Notes</a>
-      </li>
-      <li class="nav-item">
-        <a routerLink="/lists" class="nav-link">To-do</a>
-      </li>
-      <li class="nav-item">
-        <a routerLink="add" class="nav-link">Add</a>
-      </li>
+  <div class="navbar navbar-expand navbar-dark bg-dark d-flex justify-content-between">
+    <nav>
+      <div class="navbar-nav mr-auto">
+        <li class="nav-item">
+          <a routerLink="/notes" class="nav-link">Notes</a>
+        </li>
+        <li class="nav-item">
+          <a routerLink="/lists" class="nav-link">To-do</a>
+        </li>
+        <li class="nav-item">
+          <a routerLink="add" class="nav-link">Add</a>
+        </li>
+      </div>
+    </nav>
+    <div (click)="logout()" class="p-2">
+      <img ngSrc="assets/logout.svg" alt="" height="35" width="35">
     </div>
-  </nav>
+  </div>
 
   <div class="container mt-3">
     <router-outlet></router-outlet>

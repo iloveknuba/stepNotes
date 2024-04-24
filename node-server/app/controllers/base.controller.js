@@ -1,8 +1,6 @@
 exports.findAll = (req, res, Model) => {
-    const title = req.query.title;
-    const condition = title ? {title: {$regex: new RegExp(title), $options: "i"}} : {};
 
-    Model.find(condition).then(data => {
+    Model.find({userId: req.userId}).then(data => {
         res.send(data);
     }).catch(err => {
         res.status(500).send({
